@@ -1,0 +1,25 @@
+#include "Comp.h"
+
+template <typename E, typename Comp>
+void bubsort(E A[], int n) {
+	for (int i = 0 ; i < n; ++i)
+		for (int j = n - 1; j > i; --j) {
+			if (Comp::prior(A[j], A[j-1]))
+				swap(A, j, j-1);
+		}
+}
+
+//------------------------------------------
+//******************************************
+// test for Bubble Sort
+/*
+#include "Bubble Sort.h"
+int main() {
+	int a[10] = {0,3,5,7,9,0,6,4,2,0};
+	bubsort<int, Comp<int>>(a,10);
+	for (int i = 0 ; i < 10; ++i)
+		std::cout << a[i];
+}
+*/
+//*******************************************
+//-------------------------------------------
