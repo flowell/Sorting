@@ -1,0 +1,29 @@
+#include "Comp.h"
+
+template <typename E, typename Comp>
+void selsort(E A[], int n) {
+	for (int i = 0; i < n; ++i) {
+		int index = i;                                               //在此每一次循环开始前index都要初始化，如果没有初始化便存放着上一次的index，而且上一次的
+		for (int j = i + 1; j < n; ++j)                              //肯定是最小/最大的。
+			if (Comp::prior(A[j], A[index]))
+				index = j;
+		swap(A, index, i);
+	}
+}
+
+
+
+//------------------------------------------
+//******************************************
+// test for Selection Sort
+/*
+#include "Selection Sort.h"
+int main() {
+	int a[10] = {0,3,5,7,9,0,6,4,2,0};
+	selsort<int, Comp<int>>(a,10);
+	for (int i = 0 ; i < 10; ++i)
+		std::cout << a[i];
+}
+*/
+//*******************************************
+//-------------------------------------------
