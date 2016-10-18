@@ -1,0 +1,31 @@
+#include "Comp.h"
+
+template <typename E, typename Comp>
+void inssort(E A[], int n) {
+	for (int i = 1 ; i < n; ++i) {
+		int j = i;
+		while (Comp::prior(A[j], A[j-1]) && (j > 0) ) {
+				swap(A, j, j-1);
+				--j;
+		}
+	}
+}
+
+
+
+//------------------------------------------
+//******************************************
+// test for Insert Sort
+/*
+#include "Insert Sort.h"
+int main() {
+	int a[10] = {0,3,5,7,9,0,6,4,2,0};
+	inssort<int, Comp<int>>(a, 10);
+	for (int i = 0 ; i < 10; ++i)
+		std::cout << a[i];
+
+
+}
+*/
+//******************************************
+//------------------------------------------
