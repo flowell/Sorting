@@ -1,0 +1,36 @@
+#include "Comp.h"
+
+template <typename E, typename Comp>
+void insertsort(E* A, int d, int n) {                       //间距为d版本的Insert Sort
+	for (int i = 1 ; i < n; ++i) {                          //一定要注意数组越界问题。
+		int j = i;
+		while (Comp::prior(A[j], A[j - d]) && (j > 0) ) {
+				swap(A, j, j - d);
+				j -= d;
+		}
+	}
+}
+
+template <typename E, typename Comp>
+void shellsort(E A[], int n) {
+	for(int m = 367; m > 0; m = (m - 1) / 3)                       // 3n + 1 版本的shellsort
+		for (int i = 0; i < m; ++i)
+			insertsort<E, Comp>(&A[i], m, n / m);
+}
+
+
+
+//------------------------------------------
+//******************************************
+// test for Shell Sort
+/*
+#include "Shell Sort.h"
+int main() {
+	int a[10] = {0,3,5,7,9,0,6,4,2,0};
+	shellsort<int, Comp<int>>(a,10);
+	for (int i = 0 ; i < 10; ++i)
+		std::cout << a[i];
+}
+*/
+//*******************************************
+//-------------------------------------------
