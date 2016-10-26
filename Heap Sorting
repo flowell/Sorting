@@ -1,0 +1,118 @@
+#include "Comp.h"
+
+template <typename E, typename Comp>
+void heapsort(E A[], int n) {
+	Heap<E, Comp> heap(A, n);
+	for (int i = 0; i < n; ++i)
+		 heap.removeFirst();
+}
+
+//------------------------------------------
+//******************************************
+// test for Heap Sort
+
+#include "Heap Sort.h"
+int main() {
+	int a[10] = {0,3,5,7,9,0,6,4,2,0};
+	heapsort<int, Comp<int>>(a,10);
+	for (int i = 0 ; i < 10; ++i)
+		std::cout << a[i];
+}
+
+//*******************************************
+//-------------------------------------------
+
+
+
+//--------------------------------------------------
+//**************************************************
+//Definition of Heap
+template <typename E, typename Comp>
+class Heap {
+public:
+	Heap(E* h, int num);
+	E removeFirst();
+
+private:
+
+	int parent(int pos) const;
+
+	void buildHeap();
+
+	bool isLeaf(int pos) const;
+
+	inline int leftChild(int pos) const;
+	inline int rightChild(int pos) const;
+
+	void siftDown(int pos);
+
+	E* heap;
+	int n;
+
+};
+
+template <typename E, typename Comp>
+Heap<E, Comp>::Heap(E* h, int num) {
+	n =num;
+	heap = h;
+	buildHeap();
+}
+
+template <typename E, typename Comp>
+void Heap<E, Comp>::buildHeap() {
+	for (int i = n / 2 - 1; i >= 0; --i)
+		siftDown(i);
+}
+
+template <typename E, typename Comp>//未写完
+E Heap<E, Comp>::removeFirst() {
+	if (n == 1)
+		return heap[--n];
+	swap(heap, 0, --n);
+	siftDown(0);
+
+	return heap[n];
+}
+
+
+template <typename E, typename Comp>
+int Heap<E, Comp>::parent(int pos) const {
+	return (pos - 1) / 2;
+}
+
+template <typename E, typename Comp>
+int Heap<E, Comp>::leftChild(int pos) const {
+	return 2 * pos + 1;
+}
+
+template <typename E, typename Comp>
+int Heap<E, Comp>::rightChild(int pos) const {
+	return 2 * pos + 2;
+}
+
+template <typename E, typename Comp>
+bool Heap<E, Comp>::isLeaf(int pos) const {
+	return pos >= n / 2 && pos < n;     //应该为leftChild(pos) >= n,即 npos >= (n - 1) / 2；但因为C++中整型直接舍弃小数点后，所以加上1/2
+}
+
+template <typename E, typename Comp>
+void Heap<E, Comp>::siftDown(int pos) {
+	int index;
+	int l;
+	int r;
+	while (!isLeaf(pos)) {
+		r = rightChild(pos);
+		l = leftChild(pos);
+		if (Comp::prior(heap[l], heap[r]) && r < n)            //注意判断r的范围不能越界
+			index = r;
+		else
+			index = l;
+		if (Comp::prior(heap[index], heap[pos]))
+			return;
+		swap(heap, pos, index);
+		pos = index;
+	}
+}
+
+//*******************************************************
+//-------------------------------------------------------
