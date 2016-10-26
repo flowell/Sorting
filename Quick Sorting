@@ -33,7 +33,7 @@ int partition(E A[],int left, int right) {
 
 		swap(A, l, r);
 	}
-	swap(A, left, l);
+	swap(A, pivot, l);
 	return l ;           
 }*/
 //正确代码 注意最后两行的r
@@ -56,6 +56,6 @@ int partition(E A[],int left, int right) {
 
 		swap(A, l, r);
 	}
-	swap(A, left, r);
+	swap(A, pivot, r);
 	return r ;
 }
