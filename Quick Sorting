@@ -1,0 +1,61 @@
+#include "Comp.h"
+
+template <typename E, typename Comp>
+void quicksort(E A[], int n) {
+	QuickSort<E, Comp>(A, 0, n - 1);
+}
+
+template <typename E, typename Comp>
+void QuickSort(E A[], int left, int right) {
+	if (left >= right)
+		return;
+	int pivot = partition<E, Comp>(A, left, right);
+	QuickSort<E, Comp>(A, left, pivot - 1);
+	QuickSort<E, Comp>(A, pivot + 1, right);
+}
+//错误代码
+/*
+template <typename E, typename Comp>
+int partition(E A[],int left, int right) {
+	int pivot = left;
+	int l = left;
+	int r = right + 1;
+	while (true) { 
+		while (Comp::prior(A[++l], A[pivot]))
+			if (l == right)
+				break;
+		while (Comp::prior(A[pivot], A[--r]))
+			if (r == left)
+				break;
+
+		if (l >= r)
+			break;
+
+		swap(A, l, r);
+	}
+	swap(A, left, l);
+	return l ;           
+}*/
+//正确代码 注意最后两行的r
+
+template <typename E, typename Comp>
+int partition(E A[],int left, int right) {
+	int pivot = left;
+	int l = left;
+	int r = right + 1;
+	while (true) { 
+		while (Comp::prior(A[++l], A[pivot]))          //若在界内，最后l位置元素肯定大于pivot元素
+			if (l == right)
+				break;
+		while (Comp::prior(A[pivot], A[--r]))          //若在界内，最后r位置元素肯定小于pivot元素，所以下面才把pivot和r位置元素交换
+			if (r == left)
+				break;
+
+		if (l >= r)                 //在swap前进行判断
+			break;
+
+		swap(A, l, r);
+	}
+	swap(A, left, r);
+	return r ;
+}
