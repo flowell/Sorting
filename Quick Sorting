@@ -59,3 +59,20 @@ int partition(E A[],int left, int right) {
 	swap(A, pivot, r);
 	return r ;
 }
+/*
+template <typename T>
+int partition(T* a, int l, int r) {
+	int pivot = l;
+	int i = l;
+	int j = r+1;
+	while (true) {
+		while (a[++i] < a[pivot] && i < r)
+		while (a[--j] > a[pivot])
+		if (i >= j)
+			break;
+		swap(a, i, j);
+	}
+	swap(a, pivot, j);
+	return j;
+}
+*/
